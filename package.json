@@ -15,6 +15,7 @@
     "@aws-cdk/assert": "1.94.1",
     "@aws-cdk/aws-apigateway": "^1.94.1",
     "@aws-cdk/aws-lambda-nodejs": "^1.94.1",
+    "@aws-cdk/aws-route53-targets": "^1.94.1",
     "@types/aws-lambda": "^8.10.72",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
