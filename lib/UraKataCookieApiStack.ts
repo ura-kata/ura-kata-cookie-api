@@ -20,6 +20,7 @@ export class UraKataCookieApiStack extends cdk.Stack {
     const certificateArn = process.env.URA_KATA_CERTIFICATE_ARN as string;
     const publicHostedZoneId = process.env
       .URA_KATA_PUBLIC_HOSTED_ZONE_ID as string;
+    const apiStageName = process.env.URA_KATA_COOKIE_API_STAGE_NAME as string;
 
     const hostZone = HostedZone.fromHostedZoneAttributes(
       this,
@@ -61,8 +62,13 @@ export class UraKataCookieApiStack extends cdk.Stack {
     const restApi = new UraKataCookieApiRestApi(
       this,
       'UraKataCookieApiRestApiGateway',
-      'ura-kata-cookie-api'
+      'ura-kata-cookie-api',
+      apiStageName
     );
+
+    customDomainName.addBasePathMapping(restApi, {
+      basePath: apiStageName,
+    });
 
     const integration = new LambdaIntegration(lambdaFunction);
 
