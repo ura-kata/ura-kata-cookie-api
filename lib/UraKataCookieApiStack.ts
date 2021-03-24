@@ -47,7 +47,8 @@ export class UraKataCookieApiStack extends cdk.Stack {
       this,
       'UraKataCookieApiARecord',
       customDomainName,
-      hostZone
+      hostZone,
+      domainName
     );
 
     const lambdaFunction = new UraKataCookieApiFunction(

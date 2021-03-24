@@ -8,11 +8,12 @@ export class UraKataCookieApiARecord extends ARecord {
     scope: Construct,
     id: string,
     customDomainName: UraKataCookieApiCustomDomainName,
-    hostedZone: IHostedZone
+    hostedZone: IHostedZone,
+    recordName: string
   ) {
     super(scope, id, {
       target: RecordTarget.fromAlias(new ApiGatewayDomain(customDomainName)),
-      recordName: customDomainName.domainName,
+      recordName: recordName,
       zone: hostedZone,
     });
   }
