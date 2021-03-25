@@ -53,9 +53,10 @@ function postRefreshToken(
 
     const req = https.request(options, (res) => {
       res.on('data', (chunk) => {
-        // DEBUG
-        console.log('postRefreshToken success');
-        console.log(chunk);
+        // // DEBUG
+        // console.log('postRefreshToken success');
+        // console.log(chunk);
+
         try {
           const responseData = JSON.parse(chunk) as RefreshTokenResponse;
           resolve(responseData);
@@ -85,8 +86,8 @@ export const handler: APIGatewayProxyHandler = async (
   event,
   context
 ): Promise<APIGatewayProxyResult> => {
-  // DEBUG
-  console.log(event);
+  // // DEBUG
+  // console.log(event);
 
   // 'event.resource' has no staging name.
   const resource = event.resource + '/';
@@ -143,6 +144,10 @@ export const handler: APIGatewayProxyHandler = async (
         if (!refreshTokenResponse) {
           throw new Error('token refresh error');
         }
+
+        // // DEBUG
+        // console.log('refreshTokenResponse');
+        // console.log(refreshTokenResponse);
 
         const setCookies = [
           `access_token=${refreshTokenResponse.access_token}; ${cookieEndHttpOnly}`,
