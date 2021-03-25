@@ -52,11 +52,20 @@ export class UraKataCookieApiStack extends cdk.Stack {
       domainName
     );
 
+    const environment = {
+      URA_KATA_COOKIE_API_DOMAIN_NAME: process.env
+        .URA_KATA_COOKIE_API_DOMAIN_NAME as string,
+      COGNITO_TOKEN_ENDPOINT_HOST: process.env
+        .COGNITO_TOKEN_ENDPOINT_HOST as string,
+      COGNITO_CLIENT_ID: process.env.COGNITO_CLIENT_ID as string,
+    };
+
     const lambdaFunction = new UraKataCookieApiFunction(
       this,
       'UraKataCookieApiLambda',
       path.join(__dirname, '../lib/handler.ts'),
-      'ura-kata-cookie-api'
+      'ura-kata-cookie-api',
+      environment
     );
 
     const restApi = new UraKataCookieApiRestApi(
