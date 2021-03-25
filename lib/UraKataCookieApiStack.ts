@@ -72,10 +72,10 @@ export class UraKataCookieApiStack extends cdk.Stack {
 
     const integration = new LambdaIntegration(lambdaFunction);
 
-    const setResouse = restApi.root.addResource('set');
-    const resetResouse = restApi.root.addResource('reset');
+    const setResouse = restApi.root.addResource('token');
 
     setResouse.addMethod('POST', integration);
-    resetResouse.addMethod('POST', integration);
+    setResouse.addMethod('PATCH', integration);
+    setResouse.addMethod('DELETE', integration);
   }
 }
