@@ -87,17 +87,25 @@ export const handler: APIGatewayProxyHandler = async (
   context
 ): Promise<APIGatewayProxyResult> => {
   // // DEBUG
+  // console.log('event');
   // console.log(event);
+  // console.log('context');
+  // console.log(context);
 
   // 'event.resource' has no staging name.
   const resource = event.resource + '/';
-  const host = event.headers['Host'];
-  const protocol = event.headers['X-Forwarded-Proto'];
-  let origin = protocol + '://' + host;
+  // const host = event.headers['Host'];
+  // console.log('host:');
+  // console.log(host);
 
-  if (!host?.endsWith(URA_KATA_COOKIE_API_DOMAIN_NAME)) {
+  let origin = event.headers['origin'];
+
+  if (!origin?.endsWith(URA_KATA_COOKIE_API_DOMAIN_NAME)) {
+    const protocol = event.headers['X-Forwarded-Proto'];
     origin = protocol + '://' + URA_KATA_COOKIE_API_DOMAIN_NAME;
   }
+  // console.log('Access-Control-Allow-Origin:');
+  // console.log(origin);
 
   const multiValueHeaders: { [key: string]: string[] } = {};
   const responseHeaders: { [key: string]: string } = {};
@@ -185,6 +193,9 @@ export const handler: APIGatewayProxyHandler = async (
           `refresh_token=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; ${cookieEndHttpOnly}`,
           `id_token=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; ${cookieEnd}`,
         ];
+        break;
+      }
+      case 'OPTIONS': {
         break;
       }
       default: {

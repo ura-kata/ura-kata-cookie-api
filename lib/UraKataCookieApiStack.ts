@@ -86,5 +86,6 @@ export class UraKataCookieApiStack extends cdk.Stack {
     setResouse.addMethod('POST', integration);
     setResouse.addMethod('PATCH', integration);
     setResouse.addMethod('DELETE', integration);
+    setResouse.addMethod('OPTIONS', integration);
   }
 }
